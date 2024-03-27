@@ -3,7 +3,7 @@
  <%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>    
     
 <!DOCTYPE html>
-<html>
+<html	>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -62,7 +62,7 @@
 	    </tr>
 	    <tr>
 	      <td colspan="5">
-	        [<a href="/Board/WriteForm">새 글 추가</a>]
+	        [<a href="/Board/WriteForm?menu_id=${ menu_id }">새 글 추가</a>]
 	      </td>
 	    </tr>
 	    
