@@ -54,9 +54,15 @@ public class BoardController {
 	@RequestMapping("/WriteForm")
 	public  ModelAndView   writeForm( MenuVo  menuVo  ) {
 		
+		// 메뉴 목록 조회
+		List<MenuVo>  mList =  menuMapper.getMenuList(); 
+		System.out.println( "[==MenuList==] :" + mList  );
+		
+		// ?menu_id=MENU01  넘어온 menu_id 를 처리
 		String        menu_id  =  menuVo.getMenu_id(); 
 		
 		ModelAndView  mv       =  new ModelAndView();
+		mv.addObject("menuList", mList  );
 		mv.addObject("menu_id",  menu_id );
 		mv.setViewName("board/write");
 		return mv;	
@@ -76,6 +82,34 @@ public class BoardController {
 		ModelAndView  mv      =  new ModelAndView();
 		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
 		return        mv;
+		
+	}
+	
+	//  /Board/View?bno=1
+	@RequestMapping("/View")
+	public  ModelAndView  view( BoardVo  boardVo ) {
+		
+		// 메뉴목록 조회
+		List<MenuVo>  menuList =  menuMapper.getMenuList(); 
+		
+		// 조회수 증가( 현재 bno 의 HIT = HIT + 1 )
+		boardMapper.incHit( boardVo );
+		
+		//  bno 로 조회한 게시글 정보
+		BoardVo       vo       =  boardMapper.getBoard( boardVo  );   
+		
+		// vo.content 안의 \n 을 '<br>' 로 변경한다
+		String   content  =  vo.getContent();  
+		if(content != null) {
+			content           =  content.replace("\n", "<br>");		
+			vo.setContent(  content  );
+		}
+				
+		ModelAndView  mv  =  new  ModelAndView();
+		mv.addObject("menuList",  menuList );
+		mv.addObject("vo", vo);
+		mv.setViewName("board/view");
+		return  mv;
 		
 	}
 	
