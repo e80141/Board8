@@ -39,10 +39,13 @@ public class BoardController {
 		List<BoardVo> boardList  =  boardMapper.getBoardList( menuVo  ); 
 		System.out.println( boardList );
 		
-		String        menu_id    =  menuVo.getMenu_id();
+		MenuVo        mVo        =  menuMapper.getMenu( menuVo.getMenu_id() ); 
+		String        menu_id    =  mVo.getMenu_id();
+		String        menu_name  =  mVo.getMenu_name();
 				
 		ModelAndView  mv         =  new ModelAndView();
-		mv.addObject("menu_id",    menu_id );
+		mv.addObject("menu_id",    menu_id   );	
+		mv.addObject("menu_name",  menu_name );
 		mv.addObject("menuList",   menuList );
 		mv.addObject("boardList",  boardList );
 		mv.setViewName("board/list");
@@ -85,8 +88,9 @@ public class BoardController {
 		
 	}
 	
-	//  /Board/View?bno=1
+	//  /Board/View?bno=1&menu_id=MENU01
 	@RequestMapping("/View")
+	//public  ModelAndView  view( int bno, String menuid ) {
 	public  ModelAndView  view( BoardVo  boardVo ) {
 		
 		// 메뉴목록 조회
@@ -111,6 +115,21 @@ public class BoardController {
 		mv.setViewName("board/view");
 		return  mv;
 		
+	}
+	
+	//  /Board/Delete?bno=3&menu_id=MENU01
+	@RequestMapping("/Delete")
+	public   ModelAndView  delete(BoardVo  boardVo) {
+		
+		// 게시글 삭제
+		boardMapper.deleteBoard( boardVo );
+		
+		String   menu_id = boardVo.getMenu_id();
+		
+		// 다시 조회
+		ModelAndView   mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
+		return    mv;
 	}
 	
 	
