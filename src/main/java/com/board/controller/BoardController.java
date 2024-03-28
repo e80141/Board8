@@ -37,7 +37,7 @@ public class BoardController {
 		
 		// 게시물 목록
 		List<BoardVo> boardList  =  boardMapper.getBoardList( menuVo  ); 
-		System.out.println( boardList );
+		//System.out.println( boardList );
 		
 		MenuVo        mVo        =  menuMapper.getMenu( menuVo.getMenu_id() ); 
 		String        menu_id    =  mVo.getMenu_id();
@@ -93,7 +93,7 @@ public class BoardController {
 	//public  ModelAndView  view( int bno, String menuid ) {
 	public  ModelAndView  view( BoardVo  boardVo ) {
 		
-		// 메뉴목록 조회
+		// 메뉴목록 조회(menus.jsp 용)
 		List<MenuVo>  menuList =  menuMapper.getMenuList(); 
 		
 		// 조회수 증가( 현재 bno 의 HIT = HIT + 1 )
@@ -131,7 +131,35 @@ public class BoardController {
 		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
 		return    mv;
 	}
+		
+	//   /Board/UpdateForm?bno=8&menu_id=MENU01
+	@RequestMapping("/UpdateForm")
+	public  ModelAndView   updateForm( BoardVo boardVo ) {
+		
+		List<MenuVo>  menuList  =  menuMapper.getMenuList();
+		
+		BoardVo       vo        =  boardMapper.getBoard( boardVo  );
+		
+		ModelAndView  mv        =  new ModelAndView();
+		mv.addObject("menuList", menuList );
+		mv.addObject("vo",       vo );
+		mv.setViewName("board/update");  //update.jsp
+		return  mv;
+	}
 	
+	//  /Board/Update 
+	@RequestMapping("/Update")
+	public  ModelAndView  update( BoardVo boardVo ) {
+		
+		// 수정
+		boardMapper.updateBoard( boardVo   );
+		
+		String        menu_id =  boardVo.getMenu_id(); 
+		
+		ModelAndView  mv      =  new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
+		return  mv;		
+	}
 	
 }
 

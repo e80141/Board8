@@ -20,4 +20,12 @@ public interface BoardMapper {
 
 	void deleteBoard(BoardVo boardVo);
 
+	void updateBoard(BoardVo boardVo);
+
 }
+
+
+
+
+
+

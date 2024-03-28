@@ -73,7 +73,7 @@
 	    <tr>
 	      <td>${ boardVo.bno   }</td>
 	      <td>
-	       <a href="/Board/View?bno=${ boardVo.bno }">
+	       <a href="/Board/View?bno=${ boardVo.bno }&menu_id=${boardVo.menu_id}">
 	          ${ boardVo.title       }
 	       </a>
 	      </td>	      	      
