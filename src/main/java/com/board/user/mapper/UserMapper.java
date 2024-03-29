@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.board.domain.BoardVo;
 import com.board.user.domain.UserVo;
 
 @Mapper
@@ -19,6 +20,10 @@ public interface UserMapper {
 	void updateUser(UserVo userVo);
 
 	void deleteUser(UserVo userVo);
+
+	UserVo login(String userid, String passwd);
+
+	
 
 }
 
