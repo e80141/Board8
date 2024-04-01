@@ -40,15 +40,15 @@
 	<table>
 	 <tr>
 	   <td>아이디</td>
-	   <td><input type="text" name="userid" /></td>
+	   <td><input type="text" name="userid" value="sky" /></td>
 	 </tr>
 	 <tr>
 	   <td>비밀번호</td>
-	   <td><input type="password" name="passwd" /></td>
+	   <td><input type="password" name="passwd" value="1234" /></td>
 	 </tr>	
 	 <tr>
 	   <td colspan="2">
-	    <input type="submit" value="추가" />
+	    <input type="submit" value="로그인" />
 	    <input type="button" value="목록" id="goList" />
 	   </td>
 	 </tr>
