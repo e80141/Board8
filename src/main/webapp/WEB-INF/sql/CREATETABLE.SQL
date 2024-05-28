@@ -18,7 +18,7 @@ CREATE   TABLE   TUSER (
    , INDATE      DATE          DEFAULT SYSDATE
 );
 
--- 멀티 게시판 - 구조변경
+-- 멀티 게시판(메뉴로 다중게시판구현) - 구조변경
 DROP    TABLE  BOARD;
 CREATE  TABLE  BOARD (
 	  BNO	       NUMBER(8,0)           PRIMARY  KEY
@@ -30,6 +30,42 @@ CREATE  TABLE  BOARD (
     , REGDATE	   DATE                  DEFAULT  SYSDATE
     , HIT	       NUMBER(9,0)           DEFAULT  0  
 );
+
+---------------------------------------
+--- 자료실 용 추가
+--- 자료실을 위한 FIELS 테이블 생성
+---------------------------------------
+CREATE  TABLE  FILES
+(
+     FILE_NUM    NUMBER(6,0)    NOT NULL    -- 파일번호
+   , BNO         NUMBER(6,0)    NOT NULL    -- 게시글 번호
+   , FILENAME    VARCHAR2(300)  NOT NULL    -- 파일이름
+   , FILEEXT     VARCHAR2(300)  NOT NULL    -- 파일확장자
+   , SFILENAME   VARCHAR2(300)  NOT NULL    -- 저장된 실제 파일명
+   
+   , CONTRAINT   FILES_PK       ORIMARY KEY   -- 기본기(복합키)
+   (
+       FILE_NUM,
+       BNO
+   )
+   , CONSTRAINT   FK_BOARD_FILES_BNO
+     FOREIGN KEY  (BNO)
+     REFERENCES   BOARD(BNO)
+     ON  DELETE   CASCADE
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
